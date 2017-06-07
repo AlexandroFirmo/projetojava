@@ -54,25 +54,20 @@ public class dsff {
 				System.out.println(f.getId()+"-"+f.getDescPasseio()+"-"+f.getLocal()+"\n");
 			
 			}
+			
+				DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		Date date = (Date)formatter.parse("15/03/2005");
+		Date date2 = (Date)formatter.parse("6/03/2004");
+		
+		System.out.println(date.compareTo(date2));
+		
+		TurismoPacote y = new TurismoPacote();
+		
 		}
 		
 		*/
 		
-		DateFormat formatter = new SimpleDateFormat("MM/dd/yy");
-		Date date = (Date)formatter.parse("01/29/02");
 		
-		TurismoPacote y = new TurismoPacote();
-		
-		y.setDesc("xx");
-		y.setDataEmbarque(date);
-		y.setDataRetorno(date);
-		y.setCusto(12);
-		
-		PacoteDAO x = new PacoteDAO();
-		
-		TurismoPacote novo = x.adicionarPacote(y);
-		
-		System.out.println(novo.getId());
 		
 		
 		

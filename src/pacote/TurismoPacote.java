@@ -1,5 +1,7 @@
 package pacote;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +15,7 @@ public class TurismoPacote {
 	private double custo;
 	private ArrayList <TurismoPasseio> listaPasseios;
 	
-	
+	DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	
 	public int getId() {
 		return id;

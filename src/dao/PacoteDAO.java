@@ -61,6 +61,35 @@ public class PacoteDAO {
 		}
 		return novo;
 	}
+	
+	public void atualizarPacote(TurismoPacote pacote) throws SQLException{
+		Connection con = null;
+		
+		String sql = "UPDATE pacote SET descPacote=?,dataEmbarque=?,dataRetorno=?,custo=? WHERE idPacote=?";
+		
+		try{
+
+			con = Conexao.getConexao();
+			
+			PreparedStatement smt = con.prepareStatement(sql);
+			smt.setString(1, pacote.getDesc());
+			smt.setDate(2, new Date (pacote.getDataEmbarque().getTime()));
+			smt.setDate(3, new Date (pacote.getDataRetorno().getTime()));
+			smt.setDouble(4, pacote.getCusto());
+			smt.setInt(5, pacote.getId());
+			smt.executeUpdate();
+			smt.close();
+						
+		} catch (Exception e){
+			
+			e.printStackTrace();
+			
+		}finally{
+			
+			con.close();
+			
+		}
+	}
 	public void adicionarPacotePasseio(int idPacote,int idPasseio) throws SQLException{
 		
 		Connection con = null;
@@ -145,6 +174,36 @@ public class PacoteDAO {
 		
 	}
 	
+	public void removerPasseio(int idPacote, int idPasseio) throws SQLException{
+		
+		Connection con = null;
+		
+		String sql = "DELETE from passeiopacote where idPacote = ? and idPasseio= ?";
+		
+		try{
+			con = Conexao.getConexao();
+			
+			PreparedStatement smt = con.prepareStatement(sql);
+			
+			smt.setInt(1, idPacote);
+			smt.setInt(2,idPasseio);
+			
+			smt.execute();
+			smt.close();
+						
+		} catch (Exception e){
+			
+			e.printStackTrace();
+			
+		}finally{
+			
+			con.close();
+			
+		}
+		
+	}
+	
+	
 	
 	public void inserirPacotePasseio(int idPacote,int idPasseio) throws SQLException{
 		
@@ -173,6 +232,43 @@ public class PacoteDAO {
 			con.close();
 			
 		}
+		
+	}
+	public boolean buscarPacotePasseio(int idPacote,int idPasseio) throws SQLException{
+		
+		boolean busca = false;
+		Connection con = null;
+		
+		String sql = "SELECT * FROM passeiopacote WHERE idPacote = ? and idPasseio = ?";
+		
+		try{
+			con = Conexao.getConexao();
+			
+			PreparedStatement smt = con.prepareStatement(sql);
+			
+			smt.setInt(1, idPacote);
+			smt.setInt(2, idPasseio);
+			
+			
+			
+			ResultSet rs = smt.executeQuery();
+			while(rs.next()) {
+				
+				busca = true;
+			}
+			
+			smt.close();
+						
+		} catch (Exception e){
+			
+			e.printStackTrace();
+			
+		}finally{
+			
+			con.close();
+			
+		}
+		return busca;
 		
 	}
 	public TurismoPacote buscarPacote(int idPacote) throws SQLException{
